@@ -709,7 +709,7 @@ ToggleButton.Size = UDim2.new(0, 50, 0, 50)
 ToggleButton.Position = UDim2.new(0.15, 0, 0.15, 0)
 ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ToggleButton.BorderSizePixel = 0
-ToggleButton.Image = "rbxassetid://99669750725947" -- sua imagem
+ToggleButton.Image = "rbxassetid://112518061635682" -- sua imagem
 ToggleButton.Parent = ScreenGui
 
 -- UICorner para bordas arredondadas
