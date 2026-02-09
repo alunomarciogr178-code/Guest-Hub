@@ -674,15 +674,7 @@ QuestNeta = function()
 end
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local Window = Fluent:CreateWindow({Title="Guest Hub",SubTitle="| https://discord.gg/8hFQXBws",TabWidth=155,Size=UDim2.fromOffset(555,320),Acrylic=false,Theme="Rose",MinimizeKey=Enum.KeyCode.End})
-
-task.wait(0.1)
-
-for _, v in pairs(game.CoreGui:GetDescendants()) do
-    if v:IsA("Frame") and v.BackgroundTransparency < 1 then
-        v.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
-    end
-	end
+local Window = Fluent:CreateWindow({Title = "Guest Hub",SubTitle = "| https://discord.gg/8hFQXBws",TabWidth = 155,Size = UDim2.fromOffset(555, 320),Acrylic = false,Theme = "Dark",MinimizeKey = Enum.KeyCode.End})
 	
 -- Services
 local CoreGui = game:GetService("CoreGui")
