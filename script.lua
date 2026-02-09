@@ -674,7 +674,7 @@ QuestNeta = function()
 end
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local Window = Fluent:CreateWindow({Title = "Guest Hub",SubTitle = "| https://discord.gg/8hFQXBws",TabWidth = 155,Size = UDim2.fromOffset(555, 320),Acrylic = false,Theme = "Dark",MinimizeKey = Enum.KeyCode.End})
+local Window = Fluent:CreateWindow({Title = "Eclipse Hub",SubTitle = "| https://discord.gg/8hFQXBws",TabWidth = 155,Size = UDim2.fromOffset(555, 320),Acrylic = false,Theme = "Aqua",MinimizeKey = Enum.KeyCode.End})
 	
 -- Services
 local CoreGui = game:GetService("CoreGui")
@@ -688,11 +688,13 @@ ScreenGui.Parent = CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 -- ImageButton
-ToggleButton.Image = "rbxassetid://85306722850372"
-ToggleButton.ImageColor3 = Color3.fromRGB(255, 255, 255)
-ToggleButton.BackgroundTransparency = 1
+local ToggleButton = Instance.new("ImageButton")
+ToggleButton.Size = UDim2.new(0, 50, 0, 50)
+ToggleButton.Position = UDim2.new(0.15, 0, 0.15, 0)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ToggleButton.BorderSizePixel = 0
-ToggleButton.AutoButtonColor = false
+ToggleButton.Image = "rbxassetid://99669750725947" -- sua imagem
+ToggleButton.Parent = ScreenGui
 
 -- UICorner para bordas arredondadas
 local Corner = Instance.new("UICorner")
