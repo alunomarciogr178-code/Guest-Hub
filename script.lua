@@ -45,6 +45,10 @@ do
   ClickState = 0
   Num_self = 25
 end
+replicated.Remotes.CommF_:InvokeServer("SetTeam","Marines")
+
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/main/Addons/SaveManager.lua"))()
+SaveManager:SetLibrary(Fluent)
 
 repeat local start = plr.PlayerGui:WaitForChild("Main"):WaitForChild("Loading") and game:IsLoaded() wait() until start
 World1 = game.PlaceId == 2753915549 or game.PlaceId == 85211729168715
@@ -6946,4 +6950,7 @@ task.spawn(function()
     end)
   end)
 end)
+SaveManager:BuildConfigSection(Tabs.Settings)
+SaveManager:LoadAutoloadConfig()
+	
 Window:SelectTab(1)
