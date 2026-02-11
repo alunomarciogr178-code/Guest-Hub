@@ -5,38 +5,26 @@ spawn(function()
     local replicated = game:GetService("ReplicatedStorage")
     local pg = player.PlayerGui
 
-    -- Espera a tela de escolha de time aparecer (timeout 45s para loading lento)
     local timeout = tick() + 45
     while tick() < timeout do
         local mainGui = pg:FindFirstChild("Main")
         if mainGui and mainGui:FindFirstChild("ChooseTeam") and mainGui.ChooseTeam.Visible then
-            -- Tenta remote direto primeiro (mais confiável)
             replicated.Remotes.CommF_:InvokeServer("SetTeam", "Pirates")
             task.wait(0.4)
 
-            -- Fallback: simula clique no botão Pirates (se remote falhar)
             local piratesBtn = mainGui.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton
             if piratesBtn then
-                firesignal(piratesBtn.Activated)  -- Funciona na maioria dos executores 2026
-                -- Alternativa se firesignal não funcionar no seu executor:
-                -- game:GetService("VirtualInputManager"):SendMouseButtonEvent(piratesBtn.AbsolutePosition.X + 20, piratesBtn.AbsolutePosition.Y + 20, 0, true, game, 0)
-                -- task.wait(0.05)
-                -- game:GetService("VirtualInputManager"):SendMouseButtonEvent(piratesBtn.AbsolutePosition.X + 20, piratesBtn.AbsolutePosition.Y + 20, 0, false, game, 0)
+                firesignal(piratesBtn.Activated)
             end
 
-            -- Verifica se mudou o time
             if player.Team and player.Team.Name == "Pirates" then
-                print("[AutoJoin] Success: Entered Pirates team!")
                 break
             end
         end
         task.wait(0.15)
     end
-
-    if tick() >= timeout then
-        warn("[AutoJoin] Timeout: ChooseTeam screen not detected.")
-    end
 end)
+
 task.spawn(function()
     local HttpService = game:GetService("HttpService")
     local Players = game:GetService("Players")
