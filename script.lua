@@ -689,7 +689,7 @@ QuestNeta = function()
 end
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local Window = Fluent:CreateWindow({Title = "🌑Eclipse Hub🌑",SubTitle = "| https://discord.gg/9AKZGMak",TabWidth = 180,Size = UDim2.fromOffset(660, 440),Acrylic = false,Theme = "Aqua",MinimizeKey = Enum.KeyCode.End})
+local Window = Fluent:CreateWindow({Title = "🏹Eclipse Hub💖",SubTitle = "| Valentine's Day Edition",TabWidth = 180,Size = UDim2.fromOffset(660, 440),Acrylic = false,Theme = "Rose",MinimizeKey = Enum.KeyCode.End})
 	
 -- Services
 local CoreGui = game:GetService("CoreGui")
@@ -767,6 +767,7 @@ local Tabs = {
   Main = Window:AddTab({Title = "🚀Farm", Icon = ""}),
   Melee = Window:AddTab({Title = "🥊Fighting Style", Icon = ""}),
   Quests = Window:AddTab({Title = "💎Items Farm", Icon = ""}),
+  Event = Window:AddTab({Title = "💖Valentine's Day", Icon = ""}),
   SeaEvent = Window:AddTab({Title = "🌊Sea Events", Icon = ""}),
   Mirage = Window:AddTab({Title = "🌴Mirage + RaceV4", Icon = ""}),
   Drago = Window:AddTab({Title = "🐉Drago Dojo", Icon = ""}),
@@ -3295,7 +3296,7 @@ spawn(function()
     end)
   end
 end)
-local Q = Tabs.Quests:AddToggle("Q", {Title = "Auto Cybrog", Description = "", Default = false})
+local Q = Tabs.Quests:AddToggle("Q", {Title = "Auto Cyborg", Description = "", Default = false})
 Q:OnChanged(function(Value)
   _G.AutoColShad = Value
 end)
@@ -3696,7 +3697,110 @@ spawn(function()
     end
   end
 end)
+Tabs.Event:AddSection("Valentine's Quests")
+local Q = Tabs.Event:AddToggle("Q", {Title = "Auto Random Valentine's Shop (BETA)", Description = "", Default = false})
+Q:OnChanged(function(Value)
+ _G.AutoSpinValentine = Value
 
+spawn(function()
+    while _G.AutoSpinValentine do
+        task.wait(0.8)
+        pcall(function()
+            local valentineNPC = nil
+            for _, npc in pairs(workspace.NPCs:GetChildren()) do
+                local nameLower = npc.Name:lower()
+                if nameLower:find("valentine") or nameLower:find("cupid") or nameLower:find("heart seller") or nameLower:find("love") or nameLower:find("valentine shop") then
+                    valentineNPC = npc
+                    break
+                end
+            end
+
+            if valentineNPC and valentineNPC:FindFirstChild("HumanoidRootPart") then
+                local dist = (Root.Position - valentineNPC.HumanoidRootPart.Position).Magnitude
+                if dist > 15 then
+                    TW:Create(Root, TweenInfo.new(dist / 350, Enum.EasingStyle.Linear), {CFrame = valentineNPC.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)}):Play()
+                    task.wait(1.5)
+                end
+
+                replicated.Remotes.CommF_:InvokeServer("ValentineShop", "Spin")
+                replicated.Remotes.CommF_:InvokeServer("ValentineShop", "SpinFruit")
+                replicated.Remotes.CommF_:InvokeServer("ValentineEvent", "Spin")
+                replicated.Remotes.CommF_:InvokeServer("SpinFruit", "Valentine")
+            end
+        end)
+    end
+end)
+local Q = Tabs.Event:AddToggle("Q", {Title = "Auto Valentine's Quest (BETA)", Description = "", Default = false})
+Q:OnChanged(function(Value)
+ _G.AutoValentineQuest = Value
+ _G.ValentineQuestActive = Value
+
+spawn(function()
+    while _G.AutoValentineQuest do
+        task.wait(0.5)
+        pcall(function()
+            -- Verifica se já tem quest ativa
+            if plr.PlayerGui.Main.Quest.Visible and (plr.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text:find("Valentine") or plr.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text:find("Heart") or plr.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text:find("Love")) then
+                _G.ValentineQuestActive = true
+            else
+                _G.ValentineQuestActive = false
+            end
+
+            -- Se não tiver quest, pega
+            if not _G.ValentineQuestActive then
+                local questNPC = nil
+                for _, npc in pairs(workspace.NPCs:GetChildren()) do
+                    local nameLower = npc.Name:lower()
+                    if nameLower:find("valentine") or nameLower:find("cupid") or nameLower:find("heart giver") or nameLower:find("love quest") or nameLower:find("valentine quest") then
+                        questNPC = npc
+                        break
+                    end
+                end
+
+                if questNPC and questNPC:FindFirstChild("HumanoidRootPart") then
+                    TW:Create(Root, TweenInfo.new(1, Enum.EasingStyle.Linear), {CFrame = questNPC.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)}):Play()
+                    task.wait(1.5)
+                    replicated.Remotes.CommF_:InvokeServer("ValentineQuest", "Start")
+                    replicated.Remotes.CommF_:InvokeServer("StartQuest", "ValentineQuest", 1)
+                    replicated.Remotes.CommF_:InvokeServer("ValentineEvent", "AcceptQuest")
+                end
+            end
+
+            -- Se tiver quest ativa, mata o mob pedido
+            if _G.ValentineQuestActive then
+                local questText = plr.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text
+                local mobName = nil
+
+                if questText:find("Cookie Crafter") then mobName = "Cookie Crafter"
+                elseif questText:find("Heart Hunter") then mobName = "Heart Hunter"
+                elseif questText:find("Cupid") then mobName = "Cupid"
+                elseif questText:find("Love") then mobName = "Love"
+                elseif questText:find("Valentine") then mobName = "Valentine"
+                end
+
+                if mobName then
+                    local found = false
+                    for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+                        if enemy.Name == mobName and enemy:FindFirstChild("Humanoid") and enemy.Humanoid.Health > 0 then
+                            found = true
+                            TW:Create(Root, TweenInfo.new(0.5, Enum.EasingStyle.Linear), {CFrame = enemy.HumanoidRootPart.CFrame * CFrame.new(0, 60, 0)}):Play()
+                            task.wait(0.3)
+
+                            if _G.Seriality then
+                                AttackNoCoolDown()
+                            end
+                        end
+                    end
+
+                    -- Se não achar o mob, vai pra posição comum do evento (ajuste se souber)
+                    if not found then
+                        TW:Create(Root, TweenInfo.new(1, Enum.EasingStyle.Linear), {CFrame = CFrame.new(0, 100, 0)}):Play()
+                    end
+                end
+            end
+        end)
+    end
+end)
 Tabs.Mirage:AddSection("Mystic Island / Full Moon")
 FullMOOn = Tabs.Mirage:AddParagraph({Title = " FullMoon Status ",Content = ""})
 Ismirage = Tabs.Mirage:AddParagraph({Title = " Mirage Island Status ",Content = ""})
