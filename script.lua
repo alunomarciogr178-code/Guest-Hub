@@ -689,7 +689,7 @@ QuestNeta = function()
 end
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local Window = Fluent:CreateWindow({Title = "🌑Eclipse Hub🌑",SubTitle = "| https://discord.gg/9AKZGMak",TabWidth = 180,Size = UDim2.fromOffset(660, 440),Acrylic = false,Theme = "Aqua",MinimizeKey = Enum.KeyCode.End})
+local Window = Fluent:CreateWindow({Title = "🏹Eclipse Hub❤️",SubTitle = "| Valentine´s Day Edition",TabWidth = 180,Size = UDim2.fromOffset(660, 440),Acrylic = false,Theme = "Rose",MinimizeKey = Enum.KeyCode.End})
 	
 -- Services
 local CoreGui = game:GetService("CoreGui")
@@ -708,7 +708,7 @@ ToggleButton.Size = UDim2.new(0, 50, 0, 50)
 ToggleButton.Position = UDim2.new(0.15, 0, 0.15, 0)
 ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ToggleButton.BorderSizePixel = 0
-ToggleButton.Image = "rbxassetid://112518061635682" -- sua imagem
+ToggleButton.Image = "rbxassetid://130364232574601" -- sua imagem
 ToggleButton.Parent = ScreenGui
 
 -- UICorner para bordas arredondadas
@@ -951,8 +951,24 @@ spawn(function()
   end
 end)
 
-Tabs.Main:AddSection("Miscellanea / Quest")
+Tabs.Main:AddSection("Miscellanea / Quest / Valentines")
 
+local ClosetMons = Tabs.Main:AddToggle("ClosetMons", {Title = "Random Valentines Gacha", Description = "", Default = false})
+ClosetMons:OnChanged(function(Value)
+_G.AutoSpinValentineGacha = Value
+
+spawn(function()
+    while _G.AutoSpinValentineGacha do
+        wait(Sec)  -- usa o mesmo delay do teu Random Fruit normal (Sec = 0.1)
+        pcall(function()
+            replicated.Remotes.CommF_:InvokeServer("ValentinesGachaDealer", "Spin")
+            replicated.Remotes.CommF_:InvokeServer("ValentinesGachaDealer", "Buy")
+            replicated.Remotes.CommF_:InvokeServer("ValentineGacha", "Spin")
+            replicated.Remotes.CommF_:InvokeServer("ValentinesGacha", "Spin")
+            replicated.Remotes.CommF_:InvokeServer("SpinGacha", "Valentines")
+        end)
+    end
+end)
 local ClosetMons = Tabs.Main:AddToggle("ClosetMons", {Title = "Auto Farm Nearest", Description = "", Default = false})
 ClosetMons:OnChanged(function(Value)
   _G.AutoFarmNear = Value
