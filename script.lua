@@ -689,7 +689,7 @@ QuestNeta = function()
 end
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local Window = Fluent:CreateWindow({Title = "🏹Eclipse Hub💖",SubTitle = "| Valentine's Day Edition",TabWidth = 180,Size = UDim2.fromOffset(660, 440),Acrylic = false,Theme = "Rose",MinimizeKey = Enum.KeyCode.End})
+local Window = Fluent:CreateWindow({Title = "🌑Eclipse Hub🌑",SubTitle = "| https://discord.gg/9AKZGMak",TabWidth = 180,Size = UDim2.fromOffset(660, 440),Acrylic = false,Theme = "Aqua",MinimizeKey = Enum.KeyCode.End})
 	
 -- Services
 local CoreGui = game:GetService("CoreGui")
@@ -776,7 +776,7 @@ local Tabs = {
   Travel = Window:AddTab({Title = "🗺️Travel", Icon = ""}),
   Fruit = Window:AddTab({Title = "🍎Fruits", Icon = ""}),
   Shop = Window:AddTab({Title = "🛒Shop", Icon = ""}),
-  Misc = Window:AddTab({Title = "⚡Misc", Icon = ""}),
+  Misc = Window:AddTab({Title = "⚡Misc", Icon = ""})
 }
  
 local FarmLevel = Tabs.Main:AddToggle("FarmLevel", {Title = "Auto Farm Level", Description = "", Default = false})
@@ -951,24 +951,8 @@ spawn(function()
   end
 end)
 
-Tabs.Main:AddSection("Miscellanea / Quest / Valentine")
+Tabs.Main:AddSection("Miscellanea / Quest")
 
-local Q = Tabs.Main:AddToggle("Q", {Title = "Auto Random Valentine's Shop", Description = "I recommend leaving auto-farm level and auto-store enabled for easy farming.", Default = false})
-Q:OnChanged(function(Value)
-_G.AutoSpinValentineGacha = Value
-
-spawn(function()
-    while _G.AutoSpinValentineGacha do
-        wait(Sec)
-        pcall(function()
-            replicated.Remotes.CommF_:InvokeServer("ValentinesGachaDealer", "Spin")
-            replicated.Remotes.CommF_:InvokeServer("ValentinesGachaDealer", "Buy")
-            replicated.Remotes.CommF_:InvokeServer("ValentineGacha", "Spin")
-            replicated.Remotes.CommF_:InvokeServer("ValentinesGacha", "Spin")
-            replicated.Remotes.CommF_:InvokeServer("SpinGacha", "Valentines")
-        end)
-    end
-end)
 local ClosetMons = Tabs.Main:AddToggle("ClosetMons", {Title = "Auto Farm Nearest", Description = "", Default = false})
 ClosetMons:OnChanged(function(Value)
   _G.AutoFarmNear = Value
@@ -3311,7 +3295,7 @@ spawn(function()
     end)
   end
 end)
-local Q = Tabs.Quests:AddToggle("Q", {Title = "Auto Cyborg", Description = "", Default = false})
+local Q = Tabs.Quests:AddToggle("Q", {Title = "Auto Cybrog", Description = "", Default = false})
 Q:OnChanged(function(Value)
   _G.AutoColShad = Value
 end)
@@ -3712,6 +3696,7 @@ spawn(function()
     end
   end
 end)
+
 Tabs.Mirage:AddSection("Mystic Island / Full Moon")
 FullMOOn = Tabs.Mirage:AddParagraph({Title = " FullMoon Status ",Content = ""})
 Ismirage = Tabs.Mirage:AddParagraph({Title = " Mirage Island Status ",Content = ""})
